@@ -58,15 +58,23 @@ export default function Home() {
   return (
     <main className="font-sans antialiased bg-white text-slate-900 scroll-smooth">
 
+
       {/* WHATSAPP FLOATING BUTTON */}
       <a
-        href="https://wa.me/91XXXXXXXXXX?text=Hi! I'm interested in a package from Enjoy Destination."
+        href="https://wa.me/919933254445?text=Hi! I'm interested in a package from Enjoy Destination."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-16 h-16 bg-[#25D366] rounded-full shadow-2xl hover:scale-110 transition-transform group"
+        className="fixed bottom-8 right-8 z-[60] flex items-center justify-center w-16 h-16 bg-[#25D366] rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform group"
       >
-        <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20 group-hover:hidden"></div>
-        <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+        {/* Pulsing Animation Effect */}
+        <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-25 group-hover:hidden"></div>
+
+        {/* Official Style WhatsApp Icon */}
+        <svg
+          className="w-10 h-10 text-white relative z-10"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-4.821 4.754a8.117 8.117 0 01-3.815-.958l-.273-.162-2.831.744.756-2.76-.178-.283a8.196 8.196 0 01-1.256-4.354c0-4.515 3.673-8.188 8.189-8.188 2.188 0 4.246.853 5.791 2.398a8.133 8.133 0 012.396 5.79c0 4.516-3.673 8.19-8.19 8.19m0-17.778C7.575 1.358 3.53 5.403 3.53 10.42a10.324 10.324 0 001.396 5.17l-1.48 5.408 5.534-1.452a10.358 10.358 0 004.99 1.283h.005c5.045 0 9.09-4.045 9.09-9.062 0-2.434-.947-4.722-2.666-6.441a9.006 9.006 0 00-6.446-2.66z" />
         </svg>
       </a>
