@@ -33,8 +33,16 @@ html {
   scroll-behavior: smooth;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+/* 1. MOVE IMPORTS TO THE TOP */
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap'); */
+
+/* 2. ALL OTHER STYLES GO BELOW */
+html {
+  scroll-behavior: smooth;
+}
 
 .font-serif {
   font-family: 'Playfair Display', serif;
 }
+
+/* Rest of your 1100+ lines of code... */
