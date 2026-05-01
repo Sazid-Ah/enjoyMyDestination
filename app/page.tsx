@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import NextImage from "next/image";
 
 export default function Home() {
   const images = ["/hero1.jpg", "/hero2.jpg", "/hero3.jpg"];
-
   const [bg, setBg] = useState(0);
 
-  // Manual Navigation Logic
   const nextSlide = useCallback(() => {
     setBg((prev) => (prev + 1) % images.length);
   }, [images.length]);
@@ -16,179 +17,392 @@ export default function Home() {
     setBg((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
-  // Automatic Movement
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
   }, [nextSlide]);
 
+  const tours = [
+    { title: "4N/5D Andaman Delight", price: "₹18,999", img: "/t1.jpg" },
+    { title: "5N/6D Honeymoon Special", price: "₹24,999", img: "/t2.jpg" },
+    { title: "6N/7D Family Package", price: "₹29,999", img: "/t3.jpg" },
+    { title: "Luxury Andaman Escape", price: "₹39,999", img: "/t4.jpg" },
+    { title: "Budget Andaman Trip", price: "₹14,999", img: "/t5.jpg" },
+    { title: "Adventure Andaman Tour", price: "₹27,999", img: "/t6.jpg" },
+    { title: "Romantic Beach Getaway", price: "₹22,999", img: "/t7.jpg" },
+    { title: "Scuba Diving Special", price: "₹25,999", img: "/t8.jpg" },
+    // { title: "Island Hopping Tour", price: "₹26,999", img: "/t9.jpg" },
+    // { title: "Premium Resort Package", price: "₹45,999", img: "/t10.jpg" },
+    // { title: "Short 3N Trip", price: "₹12,999", img: "/t11.jpg" },
+    // { title: "Extended 8N Tour", price: "₹49,999", img: "/t12.jpg" },
+  ];
+
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'JOURNEYS', id: 'journeys' },
+    { name: 'ISLANDS', id: 'islands' },
+    { name: 'STORY', id: 'story' },
+    { name: 'CONTACT', id: 'contact' }
+  ];
+
   return (
-    <main className="font-sans antialiased text-slate-900">
+    <main className="font-sans antialiased bg-white text-slate-900 scroll-smooth">
 
-
-      {/* WHATSAPP FLOATING BUTTON */}
-      <main className="font-sans antialiased text-slate-900 bg-white">
-      
       {/* WHATSAPP FLOATING BUTTON */}
       <a
-        href="https://wa.me/91XXXXXXXXXX?text=Hi! I'm interested in an Andaman package."
+        href="https://wa.me/91XXXXXXXXXX?text=Hi! I'm interested in a package from Enjoy Destination."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-16 h-16 bg-[#25D366] rounded-full shadow-2xl transition-transform hover:scale-110 active:scale-95 group"
+        className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-16 h-16 bg-[#25D366] rounded-full shadow-2xl hover:scale-110 transition-transform group"
       >
         <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20 group-hover:hidden"></div>
-        <svg 
-          className="w-10 h-10 text-white" 
-          fill="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-4.821 4.754a8.117 8.117 0 01-3.815-.958l-.273-.162-2.831.744.756-2.76-.178-.283a8.196 8.196 0 01-1.256-4.354c0-4.515 3.673-8.188 8.189-8.188 2.188 0 4.246.853 5.791 2.398a8.133 8.133 0 012.396 5.79c0 4.516-3.673 8.19-8.19 8.19m0-17.778C7.575 1.358 3.53 5.403 3.53 10.42a10.324 10.324 0 001.396 5.17l-1.48 5.408 5.534-1.452a10.358 10.358 0 004.99 1.283h.005c5.045 0 9.09-4.045 9.09-9.062 0-2.434-.947-4.722-2.666-6.441a9.006 9.006 0 00-6.446-2.66z"/>
+        <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-4.821 4.754a8.117 8.117 0 01-3.815-.958l-.273-.162-2.831.744.756-2.76-.178-.283a8.196 8.196 0 01-1.256-4.354c0-4.515 3.673-8.188 8.189-8.188 2.188 0 4.246.853 5.791 2.398a8.133 8.133 0 012.396 5.79c0 4.516-3.673 8.19-8.19 8.19m0-17.778C7.575 1.358 3.53 5.403 3.53 10.42a10.324 10.324 0 001.396 5.17l-1.48 5.408 5.534-1.452a10.358 10.358 0 004.99 1.283h.005c5.045 0 9.09-4.045 9.09-9.062 0-2.434-.947-4.722-2.666-6.441a9.006 9.006 0 00-6.446-2.66z" />
         </svg>
       </a>
 
       {/* HERO SECTION */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {images.map((src, index) => (
-          <div
-            key={src}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === bg ? "opacity-100" : "opacity-0"
+      <section id="top" className="relative h-screen w-full overflow-hidden flex flex-col text-white">
+        {/* <AnimatePresence mode="wait">
+          <motion.div
+            key={bg}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0 }}
+            className="absolute inset-0 z-0"
+          >
+            <NextImage
+              src={images[bg]}
+              alt="Enjoy Destination Background"
+              fill
+              priority
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40 z-10" />
+          </motion.div>
+        </AnimatePresence> */}
+        <div className="absolute inset-0 z-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              // This KEY is vital; it tells React this is a new element to animate
+              key={bg}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5 }}
+              className="absolute inset-0"
+            >
+              <NextImage
+                // Accessing the specific index from your images array
+                src={images[bg]}
+                alt={`Enjoy Destination Hero ${bg + 1}`}
+                fill
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40 z-10" />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* HEADER */}
+        <header
+          className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 md:px-12 py-6 transition-all duration-300 ${isScrolled ? "bg-white shadow-sm" : "bg-transparent"
             }`}
-            style={{
-              backgroundImage: `url('${src}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          />
-        ))}
-
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-black/70"></div>
-
-        {/* Navigation Arrows */}
-        <button 
-          onClick={prevSlide}
-          className="absolute left-4 md:left-8 z-30 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all border border-white/20"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <button 
-          onClick={nextSlide}
-          className="absolute right-4 md:right-8 z-30 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-black transition-all border border-white/20"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-        </button>
+          {/* Logo */}
+          <div className="flex flex-col">
+            <h1 className={`text-2xl font-serif tracking-tight transition-colors duration-300 ${isScrolled || isMobileMenuOpen ? "text-slate-900" : "text-white"
+              }`}>
+              Enjoy <span className="italic text-[#E18A63] font-light">Destination</span>
+            </h1>
+          </div>
 
-        {/* Content */}
-        <div className="relative z-10 text-center text-white px-6 max-w-5xl">
-          <span className="uppercase tracking-[0.3em] text-xs md:text-sm mb-6 block font-bold text-blue-400 drop-shadow-lg">
-            Since 2018 • Island Experts
-          </span>
-          <h1 className="text-5xl md:text-8xl font-black leading-none tracking-tighter mb-8 italic uppercase">
-            Andaman <br /> <span className="not-italic font-light">Uncovered</span>
-          </h1>
-          <div className="mt-12 flex flex-col md:flex-row gap-6 justify-center">
-            <button className="bg-white text-blue-900 px-12 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-blue-600 hover:text-white transition-all shadow-2xl">
-              Get Started
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-10">
+            {navLinks.map((item) => (
+              <Link
+                key={item.id}
+                href={`#${item.id}`}
+                className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-300 ${isScrolled ? "text-slate-600 hover:text-[#E18A63]" : "text-white hover:text-[#E18A63]"
+                  }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-6">
+            <button className="hidden md:block bg-[#E18A63] text-white text-[10px] tracking-[0.2em] px-8 py-3 hover:bg-[#c97652] transition-all">
+              PLAN A TRIP
             </button>
-            <button className="bg-transparent border-2 border-white/40 text-white px-12 py-5 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-blue-900 transition-all">
-              Watch Tour
+
+            {/* Hamburger Icon */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`lg:hidden flex flex-col gap-1.5 z-50 transition-all ${isScrolled || isMobileMenuOpen ? "text-slate-900" : "text-white"
+                }`}
+            >
+              <div className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <div className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`} />
+              <div className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
             </button>
           </div>
+        </header>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 lg:hidden"
+            >
+              {navLinks.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-xl tracking-[0.4em] font-serif text-slate-900 hover:text-[#E18A63] transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <button className="mt-4 bg-[#E18A63] text-white text-[10px] tracking-[0.2em] px-10 py-4 font-bold uppercase">
+                Plan a Trip
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {/* METADATA ROW */}
+        {/* <div className="relative z-20 flex justify-between px-8 md:px-12 mt-4 opacity-70">
+          <div className="border-t border-white/30 pt-2 w-40 md:w-64">
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium">Est. Port Blair · 2018</p>
+          </div>
+          <div className="border-t border-white/30 pt-2 w-40 md:w-64 text-right">
+            <p className="text-[9px] tracking-[0.2em] uppercase font-medium">11°40'N · 92°45'E</p>
+          </div>
+        </div> */}
+
+        {/* HERO CONTENT */}
+        <div className="relative z-10 flex-grow flex flex-col justify-center px-8 md:px-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+            <p className="text-[#E18A63] text-[10px] tracking-[0.4em] mb-6 uppercase font-bold">
+              Experience the archipelago with Enjoy Destination
+            </p>
+            <h2 className="text-6xl md:text-[9rem] font-serif leading-[0.85] tracking-tight mb-12">
+              Where the <br /> sea forgets <br /> time.
+            </h2>
+            <div className="flex flex-wrap gap-6">
+              <button className="bg-[#E18A63] px-10 py-5 text-[10px] tracking-[0.2em] uppercase font-bold hover:scale-105 transition-transform shadow-xl">
+                Begin Your Voyage
+              </button>
+              <button className="border border-white/40 px-10 py-5 text-[10px] tracking-[0.2em] uppercase font-bold hover:bg-white hover:text-black transition-all">
+                Browse Journeys
+              </button>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-10 flex gap-3 z-30">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setBg(i)}
-              className={`h-1.5 transition-all rounded-full ${bg === i ? "w-12 bg-white" : "w-4 bg-white/40 hover:bg-white/60"}`}
-            />
-          ))}
+        {/* SLIDE INDICATORS */}
+        <div className="relative z-20 px-8 md:px-12 pb-12 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <div className="flex gap-2">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setBg(i)}
+                  className={`h-[2px] transition-all duration-500 ${bg === i ? "w-12 bg-white" : "w-6 bg-white/30 hover:bg-white/60"}`}
+                />
+              ))}
+            </div>
+            <p className="text-[10px] tracking-[0.2em]">0{bg + 1} / 0{images.length}</p>
+          </div>
+          <div className="flex gap-4">
+            <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">←</button>
+            <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">→</button>
+          </div>
         </div>
       </section>
-
-      {/* REMAINDER OF YOUR CODE (TRUST BAR, PACKAGES, ETC) */}
-      <section className="py-20 text-center">
-         <h2 className="text-3xl font-bold">Your journey begins here.</h2>
-      </section>
-      
-    </main>
 
       {/* TRUST BAR */}
-      <section className="py-10 bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 flex flex-wrap justify-between items-center gap-8 text-slate-500">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">⭐</span>
-            <div>
-              <p className="text-slate-900 font-bold leading-none">500+ Happy Clients</p>
-              <p className="text-xs uppercase tracking-tighter">Verified Reviews</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">🏝️</span>
-            <div>
-              <p className="text-slate-900 font-bold leading-none">Local Experts</p>
-              <p className="text-xs uppercase tracking-tighter">Based in Port Blair</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">🛡️</span>
-            <div>
-              <p className="text-slate-900 font-bold leading-none">100% Trusted</p>
-              <p className="text-xs uppercase tracking-tighter">Safe & Secure Travel</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* PACKAGES */}
-      <section className="py-24 px-6 bg-slate-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-end mb-12">
-            <div>
-              <h2 className="text-4xl font-extrabold text-slate-900">Popular Tours</h2>
-              <p className="text-slate-500 mt-2">The most loved experiences by our travelers</p>
-            </div>
-            <button className="hidden md:block text-blue-600 font-bold hover:underline">View All Packages →</button>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
+      <section className="py-5 bg-[#F9F7F2] border-y border-black/5">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-15 lg:gap-24">
             {[
-              { title: "Havelock Bliss", price: "₹18,999", img: "https://images.unsplash.com/photo-1589135303604-b936ed412d3d?q=80&w=800" },
-              { title: "Neil Island Escape", price: "₹22,500", img: "https://images.unsplash.com/photo-1544141101-086392097728?q=80&w=800" },
-              { title: "Andaman Highlights", price: "₹28,000", img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800" },
-            ].map((pkg, i) => (
-              <div key={i} className="group bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                <div className="relative h-64 overflow-hidden">
-                  <img src={pkg.img} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt={pkg.title} />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold shadow-sm">
-                    4 Nights / 5 Days
-                  </div>
+              { label: "500+ Happy Clients", sub: "Verified Reviews", icon: "⭐" },
+              { label: "Local Experts", sub: "Based in Port Blair", icon: "🏝️" },
+              { label: "100% Trusted", sub: "Safe & Secure Travel", icon: "🛡️" }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="flex items-center gap-6 group cursor-default"
+              >
+                <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-300">
+                  <span className="text-2xl group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
                 </div>
-                <div className="p-8">
-                  <h3 className="font-bold text-2xl text-slate-800">{pkg.title}</h3>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="text-blue-600 font-bold text-xl">{pkg.price}</span>
-                    <span className="text-slate-400 text-sm">/ person</span>
-                  </div>
-                  <button className="mt-8 w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-blue-600 transition shadow-lg">
-                    See Details
-                  </button>
+                <div>
+                  <p className="text-slate-900 font-serif text-xl tracking-tight leading-none mb-1">
+                    {item.label}
+                  </p>
+                  <p className="text-[#E18A63] text-[10px] uppercase tracking-[0.2em] font-bold">
+                    {item.sub}
+                  </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-12 bg-slate-950 text-white">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h3 className="text-2xl font-bold mb-4">Andaman Trails</h3>
-          <p className="text-slate-500 max-w-md mx-auto mb-8">Your local partner for unforgettable island memories. Licensed by Andaman Tourism.</p>
-          <div className="border-t border-slate-900 pt-8 text-slate-600 text-sm">
-            © 2026 Travel Company. All rights reserved.
+      {/* JOURNEYS SECTION */}
+      <section id="journeys" className="py-24 px-8 md:px-20 bg-gray-50 scroll-mt-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-end mb-16">
+            <div>
+              <h2 className="text-4xl font-serif tracking-tight text-slate-900">Popular Tours</h2>
+              <p className="text-slate-500 mt-2">Curated experiences by Enjoy Destination.</p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {tours.map((tour, i) => (
+              <motion.div
+                key={i}
+                className="group bg-white overflow-hidden shadow-sm hover:shadow-xl transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <img src={tour.img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={tour.title} />
+                  <div className="absolute top-4 right-4 bg-white px-3 py-1 text-[10px] font-bold tracking-tighter text-slate-900 shadow-sm">
+                    {tour.price}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-serif text-lg text-slate-900 mb-4">{tour.title}</h3>
+                  <button className="w-full py-3 text-[9px] tracking-[0.2em] font-bold border border-slate-200 hover:bg-slate-900 hover:text-white transition-all">
+                    EXPLORE JOURNEY
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PLACEHOLDER SECTIONS */}
+      <section id="islands" className="py-24 px-8 bg-white border-t border-gray-100 scroll-mt-10 text-center">
+        <h2 className="text-4xl font-serif mb-4">Discover the Archipelago</h2>
+        <p className="text-slate-500 max-w-2xl mx-auto">From Havelock to Neil, explore every corner with Enjoy Destination specialists.</p>
+      </section>
+
+      <section id="story" className="py-24 px-8 bg-gray-50 border-t border-gray-100 scroll-mt-10 text-center">
+        <h2 className="text-4xl font-serif mb-4">Our Story</h2>
+        <p className="text-slate-500 max-w-2xl mx-auto">Crafting unhurried journeys since 2018.</p>
+      </section>
+
+      <footer id="contact" className="py-24 bg-slate-950 text-white border-t border-white/5 scroll-mt-10">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="grid lg:grid-cols-2 gap-20 mb-20">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h3 className="text-[10px] tracking-[0.4em] text-[#E18A63] font-bold uppercase mb-6">Connect With Us</h3>
+              <h2 className="text-5xl font-serif mb-10 leading-tight">Start your journey <br /> with Enjoy Destination</h2>
+              <div className="space-y-10 mt-12">
+                <div>
+                  <p className="text-[#E18A63] text-[9px] tracking-widest uppercase mb-2 font-bold">Call or WhatsApp</p>
+                  <p className="text-2xl font-light tracking-tight hover:text-[#E18A63] transition-colors">
+                    <a href="https://wa.me/91XXXXXXXXXX">+91 9XXX XXX XXX</a>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[#E18A63] text-[9px] tracking-widest uppercase mb-2 font-bold">Email Inquiry</p>
+                  <p className="text-2xl font-light tracking-tight hover:text-[#E18A63] transition-colors">
+                    <a href="mailto:hello@enjoydestination.com">hello@enjoydestination.com</a>
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[#E18A63] text-[9px] tracking-widest uppercase mb-2 font-bold">Our Studio</p>
+                  <p className="text-slate-400 font-light leading-relaxed max-w-sm">
+                    Enjoy Destination Studio <br />
+                    Opposite Marina Park, Port Blair, <br />
+                    Andaman and Nicobar Islands 744101
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex flex-col justify-between lg:items-end"
+            >
+              <div className="lg:text-right">
+                <h1 className="text-4xl font-serif tracking-tight">
+                  Enjoy <span className="italic text-[#E18A63] font-light">Destination</span>
+                </h1>
+                <p className="text-slate-600 text-[10px] tracking-[0.3em] uppercase mt-4 mb-10">
+                  {/* Managed by Dacitos Technologies Private Limited */}
+                </p>
+                <nav className="flex flex-col gap-4 mb-12">
+                  {[
+                    { name: 'JOURNEYS', id: 'journeys' },
+                    { name: 'ISLANDS', id: 'islands' },
+                    { name: 'STORY', id: 'story' },
+                    { name: 'CONTACT', id: 'contact' }
+                  ].map((item) => (
+                    <Link
+                      key={item.id}
+                      href={`#${item.id}`}
+                      className="text-[10px] tracking-[0.4em] font-medium text-slate-400 hover:text-[#E18A63] transition-all"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+              <div className="flex lg:justify-end gap-10 border-t border-white/10 pt-10 w-full lg:w-auto">
+                {['Instagram', 'Facebook', 'Twitter', 'LinkedIn'].map((social) => (
+                  <a
+                    key={social}
+                    href="#"
+                    className="text-[10px] tracking-widest uppercase text-slate-500 hover:text-white transition-all"
+                  >
+                    {social}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p className="text-slate-700 text-[9px] tracking-widest uppercase">
+              © 2026 Enjoy Destination. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <Link href="#top" className="text-[9px] tracking-widest uppercase text-slate-500 hover:text-[#E18A63]">Back to Top ↑</Link>
+            </div>
           </div>
         </div>
       </footer>
