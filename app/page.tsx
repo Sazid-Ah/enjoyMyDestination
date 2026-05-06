@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import NextImage from "next/image";
+import { desc } from "framer-motion/client";
 
 export default function Home() {
   const images = ["/hero1.jpg", "/hero2.jpg", "/hero3.jpg"];
@@ -318,14 +319,170 @@ export default function Home() {
       </section>
 
       {/* PLACEHOLDER SECTIONS */}
-      <section id="islands" className="py-24 px-8 bg-white border-t border-gray-100 scroll-mt-10 text-center">
-        <h2 className="text-4xl font-serif mb-4">Discover the Archipelago</h2>
-        <p className="text-slate-500 max-w-2xl mx-auto">From Havelock to Neil, explore every corner with Enjoy Destination specialists.</p>
+      <section id="islands" className="py-28 px-8 md:px-20 bg-white border-t border-gray-100 scroll-mt-10">
+        <div className="max-w-7xl mx-auto">
+
+          {/* Header */}
+          <div className="text-center mb-20">
+            <p className="text-[#E18A63] text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+              The Islands
+            </p>
+            <h2 className="text-5xl font-serif tracking-tight mb-6">
+              Discover the Archipelago
+            </h2>
+            <p className="text-slate-500 max-w-2xl mx-auto">
+              Turquoise waters, untouched beaches, and timeless island culture —
+              explore the Andaman like never before.
+            </p>
+          </div>
+
+          {/* Island Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {[
+              {
+                name: "Havelock Island",
+                desc: "Home to the world-famous Radhanagar Beach and crystal-clear waters perfect for scuba diving.",
+                img: "/havelock.jpg"
+              },
+              {
+                name: "Neil Island",
+                desc: "A peaceful retreat known for natural rock formations and laid-back island life.",
+                img: "/neil.jpg"
+              },
+              {
+                name: "Port Blair",
+                desc: "The cultural heart of Andaman with colonial history and vibrant local markets.",
+                img: "/portblair.jpeg"
+              },
+              {
+                name: "Baratang Island",
+                desc: "Explore limestone caves and mangrove creeks in this offbeat destination.",
+                img: "/baratang.jpg"
+              },
+              {
+                name: "Ross Island",
+                desc: "Walk through British-era ruins surrounded by lush greenery and deer.",
+                img: "/ross.webp"
+              },
+              {
+                name: "North Bay",
+                desc: "A paradise for water sports, snorkeling, and coral reef exploration.",
+                img: "/northbay.jpg"
+              }
+            ].map((island, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group overflow-hidden bg-gray-50 hover:bg-white border border-gray-100 hover:shadow-xl transition-all duration-500"
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src={island.img}
+                    alt={island.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                </div>
+
+                <div className="p-6">
+                  <h3 className="font-serif text-xl mb-3">{island.name}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    {island.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="story" className="py-28 px-8 md:px-20 bg-gray-50 border-t border-gray-100 scroll-mt-10">
+        <div className="max-w-6xl mx-auto text-center">
+
+          {/* Header */}
+          <p className="text-[#E18A63] text-[10px] tracking-[0.4em] uppercase font-bold mb-4">
+            Our Journey
+          </p>
+
+          <h2 className="text-5xl font-serif tracking-tight mb-8">
+            Crafted with Passion. <br /> Guided by Experience.
+          </h2>
+
+          {/* Story Content */}
+          <p className="text-slate-600 max-w-3xl mx-auto leading-relaxed text-lg mb-12">
+            Since 2018, <b>Enjoy Destination</b> has been curating unforgettable journeys
+            across the Andaman Islands. What began as a small local initiative in Port Blair
+            has grown into a trusted travel brand known for personalized experiences,
+            transparent pricing, and deep local expertise.
+          </p>
+
+          <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed mb-16">
+            We believe travel is not just about visiting places — it's about feeling them.
+            From romantic getaways to adventure-packed tours, every itinerary we design
+            is tailored to create memories that last a lifetime.
+          </p>
+
+          {/* Highlights */}
+          <div className="grid md:grid-cols-3 gap-10 text-left">
+            {[
+              {
+                title: "Local Expertise",
+                desc: "On-ground teams in Andaman ensuring seamless travel experiences."
+              },
+              {
+                title: "Tailored Journeys",
+                desc: "Custom itineraries designed to match your travel style and pace."
+              },
+              {
+                title: "Trusted by Travelers",
+                desc: "Hundreds of happy clients with verified reviews and repeat bookings."
+              }
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white p-8 border border-gray-100 hover:shadow-lg transition-all"
+              >
+                <h3 className="font-serif text-xl mb-4">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">
+                  {item.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
       </section>
 
       <section id="story" className="py-24 px-8 bg-gray-50 border-t border-gray-100 scroll-mt-10 text-center">
-        <h2 className="text-4xl font-serif mb-4">Our Story</h2>
-        <p className="text-slate-500 max-w-2xl mx-auto">Crafting unhurried journeys since 2018.</p>
+        <h2 className="text-4xl font-serif mb-4">Certified By</h2>
+        <div className="flex flex-wrap justify-center items-center gap-12 mt-12">
+          {[
+            { name: "IATO", logo: "/iato.png", desc: "Indian Association of Tour Operators" },
+            { name: "TAAI", logo: "/taai.png", desc: "Travel Agents Association of India" },
+            { name: "PATA", logo: "/pata.png", desc: "Pacific Asia Travel Association" },
+            { name: "TripAdvisor", logo: "/tripadvisor.png", desc: "World's Largest Travel Platform" }
+          ].map((cert, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="w-32 h-16 flex items-center justify-center"
+            >
+              <div className="w-70 h-35 flex flex-col items-center justify-center border border-gray-200 p-2">
+                <img src={cert.logo} alt={cert.name} className="max-h-20 object-contain" />
+                <p className="text-[10px] text-center mt-2 text-slate-500">{cert.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       <footer id="contact" className="py-24 bg-slate-950 text-white border-t border-white/5 scroll-mt-10">
@@ -336,29 +493,42 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-[10px] tracking-[0.4em] text-[#E18A63] font-bold uppercase mb-6">Connect With Us</h3>
-              <h2 className="text-5xl font-serif mb-10 leading-tight">Start your journey <br /> with Enjoy Destination</h2>
-              <div className="space-y-10 mt-12">
-                <div>
-                  <p className="text-[#E18A63] text-[9px] tracking-widest uppercase mb-2 font-bold">Call or WhatsApp</p>
-                  <p className="text-2xl font-light tracking-tight hover:text-[#E18A63] transition-colors">
-                    <a href="https://wa.me/91XXXXXXXXXX">+91 9XXX XXX XXX</a>
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[#E18A63] text-[9px] tracking-widest uppercase mb-2 font-bold">Email Inquiry</p>
-                  <p className="text-2xl font-light tracking-tight hover:text-[#E18A63] transition-colors">
-                    <a href="mailto:hello@enjoydestination.com">hello@enjoydestination.com</a>
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[#E18A63] text-[9px] tracking-widest uppercase mb-2 font-bold">Our Studio</p>
-                  <p className="text-slate-400 font-light leading-relaxed max-w-sm">
-                    Enjoy Destination Studio <br />
-                    Opposite Marina Park, Port Blair, <br />
-                    Andaman and Nicobar Islands 744101
-                  </p>
-                </div>
+              <h3 className="text-[10px] tracking-[0.4em] text-[#E18A63] font-bold uppercase mb-6">
+                Connect With Us
+              </h3>
+
+              <div className="space-y-6 mt-12 text-sm text-slate-300 leading-relaxed">
+
+                <p>
+                  <b>Head Office:</b><br />
+                  Ammas Pastry Building, 4th Floor,<br />
+                  8th Cross, Sampige Road,<br />
+                  Malleswaram, Bangalore - 560003
+                </p>
+
+                <p>
+                  <b>Branch Office:</b><br />
+                  621/3, Near CSC Centre,<br />
+                  Bombooflat,<br />
+                  Andaman and Nicobar Islands - 744107
+                </p>
+
+                <p>
+                  <b>Email:</b><br />
+                  enjoydestinationtravels@gmail.com<br />
+                  sales@enjoydestination.com
+                </p>
+
+                <p>
+                  <b>Bangalore Office:</b><br />
+                  9883090460, 9739008000
+                </p>
+
+                <p>
+                  <b>Andaman Office:</b><br />
+                  7063924106, 9531875166
+                </p>
+
               </div>
             </motion.div>
             <motion.div
@@ -390,6 +560,21 @@ export default function Home() {
                     </Link>
                   ))}
                 </nav>
+                <div className="mt-8">
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-slate-400 mb-4">
+                    Review Us Through
+                  </p>
+
+                  <div className="bg-white p-3 inline-block rounded-xl shadow-md">
+                    <img
+                      src="/trip-advisor-review-qr.png"
+                      alt="TripAdvisor Review QR"
+                      width={120}
+                      height={120}
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
               </div>
               <div className="flex lg:justify-end gap-10 border-t border-white/10 pt-10 w-full lg:w-auto">
                 {['Instagram', 'Facebook', 'Twitter', 'LinkedIn'].map((social) => (
@@ -405,12 +590,24 @@ export default function Home() {
             </motion.div>
           </div>
           <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-slate-700 text-[9px] tracking-widest uppercase">
-              © 2026 Enjoy Destination. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <Link href="#top" className="text-[9px] tracking-widest uppercase text-slate-500 hover:text-[#E18A63]">Back to Top ↑</Link>
+
+            <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 text-center md:text-left">
+
+              <p className="text-slate-700 text-[9px] tracking-widest uppercase">
+                © 2026 <span className="text-[#E18A63]">Enjoy Destination</span>. All rights reserved.
+              </p>
+
             </div>
+
+            <div className="flex gap-6">
+                <p className="text-slate-600 text-[9px] tracking-[0.2em] uppercase">
+                Crafted by{" "}
+                <span className="text-[#E18A63]">
+                  <a href="">Dacitos Technologies Pvt Ltd</a>
+                </span>
+              </p>
+            </div>
+
           </div>
         </div>
       </footer>
