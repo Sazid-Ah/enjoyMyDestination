@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import NextImage from "next/image";
 import { desc } from "framer-motion/client";
+import Image from "next/image";
 
 export default function Home() {
   const images = ["/hero1.jpg", "/hero2.jpg", "/hero3.jpg"];
@@ -127,15 +128,23 @@ export default function Home() {
 
         {/* HEADER */}
         <header
-          className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 md:px-12 py-6 transition-all duration-300 ${isScrolled ? "bg-white shadow-sm" : "bg-transparent"
+          className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 md:px-12 transition-all duration-300 ${isScrolled
+              ? "py-3 bg-white shadow-sm"
+              : "py-6 bg-transparent"
             }`}
         >
           {/* Logo */}
           <div className="flex flex-col">
-            <h1 className={`text-2xl font-serif tracking-tight transition-colors duration-300 ${isScrolled || isMobileMenuOpen ? "text-slate-900" : "text-white"
-              }`}>
-              Enjoy <span className="italic text-[#E18A63] font-light">Destination</span>
-            </h1>
+            <div className={`${isScrolled ? "-mt-0" : "-mt-1"} transition-all duration-300`}>
+              <Image
+                src="/enjoylogo.png"
+                alt="Enjoy Destination"
+                width={isScrolled ? 100 : 120}
+                height={isScrolled ? 16 : 20}
+                className="object-contain transition-all duration-300"
+                priority
+              />
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -144,7 +153,9 @@ export default function Home() {
               <Link
                 key={item.id}
                 href={`#${item.id}`}
-                className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-300 ${isScrolled ? "text-slate-600 hover:text-[#E18A63]" : "text-white hover:text-[#E18A63]"
+                className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-300 ${isScrolled
+                    ? "text-slate-600 hover:text-[#E18A63]"
+                    : "text-white hover:text-[#E18A63]"
                   }`}
               >
                 {item.name}
@@ -160,12 +171,23 @@ export default function Home() {
             {/* Hamburger Icon */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`lg:hidden flex flex-col gap-1.5 z-50 transition-all ${isScrolled || isMobileMenuOpen ? "text-slate-900" : "text-white"
+              className={`lg:hidden flex flex-col gap-1.5 z-50 transition-all ${isScrolled || isMobileMenuOpen
+                  ? "text-slate-900"
+                  : "text-white"
                 }`}
             >
-              <div className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <div className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "opacity-0" : ""}`} />
-              <div className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+              <div
+                className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                  }`}
+              />
+              <div
+                className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "opacity-0" : ""
+                  }`}
+              />
+              <div
+                className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                  }`}
+              />
             </button>
           </div>
         </header>
@@ -206,7 +228,7 @@ export default function Home() {
         </div> */}
 
         {/* HERO CONTENT */}
-        <div className="relative z-10 flex-grow flex flex-col justify-center px-8 md:px-12">
+        <div className="relative z-10 flex-grow flex flex-col justify-center px-8 md:px-13 mt-15">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
             <p className="text-[#E18A63] text-[10px] tracking-[0.4em] mb-6 uppercase font-bold">
               Experience the archipelago with Enjoy Destination
@@ -600,7 +622,7 @@ export default function Home() {
             </div>
 
             <div className="flex gap-6">
-                <p className="text-slate-600 text-[9px] tracking-[0.2em] uppercase">
+              <p className="text-slate-600 text-[9px] tracking-[0.2em] uppercase">
                 Crafted by{" "}
                 <span className="text-[#E18A63]">
                   <a href="">Dacitos Technologies Pvt Ltd</a>
