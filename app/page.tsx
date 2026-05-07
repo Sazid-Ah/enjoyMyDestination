@@ -121,8 +121,8 @@ export default function Home() {
                 <Image
                   src="/enjoylogo.png"
                   alt="Enjoy Destination"
-                  width={isScrolled ? 100 : 120}
-                  height={isScrolled ? 15 : 15}
+                  width={isScrolled ? 80 : 80}
+                  height={isScrolled ? 12 : 12}
                   className="object-contain transition-all duration-300"
                   priority
                 />
