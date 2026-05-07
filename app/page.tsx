@@ -83,25 +83,6 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <section id="top" className="relative h-screen w-full overflow-hidden flex flex-col text-white">
-        {/* <AnimatePresence mode="wait">
-          <motion.div
-            key={bg}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0 }}
-            className="absolute inset-0 z-0"
-          >
-            <NextImage
-              src={images[bg]}
-              alt="Enjoy Destination Background"
-              fill
-              priority
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40 z-10" />
-          </motion.div>
-        </AnimatePresence> */}
         <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
             <motion.div
@@ -129,21 +110,24 @@ export default function Home() {
         {/* HEADER */}
         <header
           className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 md:px-12 transition-all duration-300 ${isScrolled
-              ? "py-3 bg-white shadow-sm"
-              : "py-6 bg-transparent"
+            ? "py-1 bg-white shadow-sm"
+            : "py-1 bg-transparent"
             }`}
         >
           {/* Logo */}
           <div className="flex flex-col">
             <div className={`${isScrolled ? "-mt-0" : "-mt-1"} transition-all duration-300`}>
-              <Image
-                src="/enjoylogo.png"
-                alt="Enjoy Destination"
-                width={isScrolled ? 100 : 120}
-                height={isScrolled ? 16 : 20}
-                className="object-contain transition-all duration-300"
-                priority
-              />
+              <a href="/" className="flex items-center gap-2">
+                <Image
+                  src="/enjoylogo.png"
+                  alt="Enjoy Destination"
+                  width={isScrolled ? 100 : 120}
+                  height={isScrolled ? 15 : 15}
+                  className="object-contain transition-all duration-300"
+                  priority
+                />
+              </a>
+
             </div>
           </div>
 
@@ -154,8 +138,8 @@ export default function Home() {
                 key={item.id}
                 href={`#${item.id}`}
                 className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-300 ${isScrolled
-                    ? "text-slate-600 hover:text-[#E18A63]"
-                    : "text-white hover:text-[#E18A63]"
+                  ? "text-slate-600 hover:text-[#E18A63]"
+                  : "text-white hover:text-[#E18A63]"
                   }`}
               >
                 {item.name}
@@ -172,8 +156,8 @@ export default function Home() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`lg:hidden flex flex-col gap-1.5 z-50 transition-all ${isScrolled || isMobileMenuOpen
-                  ? "text-slate-900"
-                  : "text-white"
+                ? "text-slate-900"
+                : "text-white"
                 }`}
             >
               <div
@@ -304,7 +288,7 @@ export default function Home() {
       </section>
 
       {/* JOURNEYS SECTION */}
-      <section id="journeys" className="py-24 px-8 md:px-20 bg-gray-50 scroll-mt-10">
+      <section id="journeys" data-title="Journeys" className="py-24 px-8 md:px-20 bg-gray-50 scroll-mt-10">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-end mb-16">
             <div>
@@ -341,7 +325,7 @@ export default function Home() {
       </section>
 
       {/* PLACEHOLDER SECTIONS */}
-      <section id="islands" className="py-28 px-8 md:px-20 bg-white border-t border-gray-100 scroll-mt-10">
+      <section id="islands" data-title="Islands" className="py-28 px-8 md:px-20 bg-white border-t border-gray-100 scroll-mt-10">
         <div className="max-w-7xl mx-auto">
 
           {/* Header */}
@@ -420,7 +404,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="story" className="py-28 px-8 md:px-20 bg-gray-50 border-t border-gray-100 scroll-mt-10">
+      <section id="story" data-title="Our Story" className="py-28 px-8 md:px-20 bg-gray-50 border-t border-gray-100 scroll-mt-10">
         <div className="max-w-6xl mx-auto text-center">
 
           {/* Header */}
@@ -507,19 +491,27 @@ export default function Home() {
         </div>
       </section>
 
-      <footer id="contact" className="py-24 bg-slate-950 text-white border-t border-white/5 scroll-mt-10">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="grid lg:grid-cols-2 gap-20 mb-20">
+      <footer
+        id="contact"
+        data-title="Contact Us"
+        className="py-15 bg-slate-950 text-white border-t border-white/5 scroll-mt-10"
+      >
+        <div className="max-w-7xl mx-auto px-5 md:px-8">
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 mb-16 lg:mb-20">
+
+            {/* Left Side */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="text-center lg:text-left"
             >
               <h3 className="text-[10px] tracking-[0.4em] text-[#E18A63] font-bold uppercase mb-6">
                 Connect With Us
               </h3>
 
-              <div className="space-y-6 mt-12 text-sm text-slate-300 leading-relaxed">
+              <div className="space-y-6 mt-8 lg:mt-12 text-sm text-slate-300 leading-relaxed">
 
                 <p>
                   <b>Head Office:</b><br />
@@ -553,20 +545,32 @@ export default function Home() {
 
               </div>
             </motion.div>
+
+            {/* Right Side */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="flex flex-col justify-between lg:items-end"
+              className="flex flex-col justify-between items-center lg:items-end text-center lg:text-right"
             >
-              <div className="lg:text-right">
-                <h1 className="text-4xl font-serif tracking-tight">
-                  Enjoy <span className="italic text-[#E18A63] font-light">Destination</span>
-                </h1>
+              <div>
+
+                <div className="flex justify-center lg:justify-end">
+                  <Image
+                    src="/enjoylogo.png"
+                    alt="Enjoy Destination"
+                    width={160}
+                    height={70}
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+
                 <p className="text-slate-600 text-[10px] tracking-[0.3em] uppercase mt-4 mb-10">
                   {/* Managed by Dacitos Technologies Private Limited */}
                 </p>
-                <nav className="flex flex-col gap-4 mb-12">
+
+                <nav className="flex flex-col gap-4 mb-12 items-center lg:items-end">
                   {[
                     { name: 'JOURNEYS', id: 'journeys' },
                     { name: 'ISLANDS', id: 'islands' },
@@ -582,7 +586,8 @@ export default function Home() {
                     </Link>
                   ))}
                 </nav>
-                <div className="mt-8">
+
+                <div className="mt-8 flex flex-col items-center lg:items-end">
                   <p className="text-[10px] tracking-[0.3em] uppercase text-slate-400 mb-4">
                     Review Us Through
                   </p>
@@ -597,8 +602,10 @@ export default function Home() {
                     />
                   </div>
                 </div>
+
               </div>
-              <div className="flex lg:justify-end gap-10 border-t border-white/10 pt-10 w-full lg:w-auto">
+
+              <div className="flex flex-wrap justify-center lg:justify-end gap-6 md:gap-10 border-t border-white/10 pt-8 mt-10 w-full">
                 {['Instagram', 'Facebook', 'Twitter', 'LinkedIn'].map((social) => (
                   <a
                     key={social}
@@ -610,27 +617,30 @@ export default function Home() {
                 ))}
               </div>
             </motion.div>
+
           </div>
-          <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+
+          <div className="pt-8 md:pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-5">
 
             <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 text-center md:text-left">
-
               <p className="text-slate-700 text-[9px] tracking-widest uppercase">
                 © 2026 <span className="text-[#E18A63]">Enjoy Destination</span>. All rights reserved.
               </p>
-
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex gap-6 text-center">
               <p className="text-slate-600 text-[9px] tracking-[0.2em] uppercase">
                 Crafted by{" "}
                 <span className="text-[#E18A63]">
-                  <a href="">Dacitos Technologies Pvt Ltd</a>
+                  <a href="https://www.dacitos.com">
+                    Dacitos Technologies Pvt Ltd
+                  </a>
                 </span>
               </p>
             </div>
 
           </div>
+
         </div>
       </footer>
     </main>
