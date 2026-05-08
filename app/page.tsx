@@ -116,7 +116,7 @@ export default function Home() {
         >
           {/* Logo */}
           <div className="flex flex-col">
-            <div className={`${isScrolled ? "-mt-0" : "-mt-1"} transition-all duration-300`}>
+            <div className={`${isScrolled ? "-mt-0" : "-mt-0"} transition-all duration-300`}>
               <a href="/" className="flex items-center gap-2">
                 <Image
                   src="/enjoylogo.png"
@@ -606,15 +606,36 @@ export default function Home() {
               </div>
 
               <div className="flex flex-wrap justify-center lg:justify-end gap-6 md:gap-10 border-t border-white/10 pt-8 mt-10 w-full">
-                {['Instagram', 'Facebook', 'Twitter', 'LinkedIn'].map((social) => (
+
+                {[
+                  {
+                    name: "Instagram",
+                    link: "https://instagram.com/enjoydestinationholiday",
+                  },
+                  {
+                    name: "Facebook",
+                    link: "https://facebook.com/18b1WNtuXE",
+                  },
+                  {
+                    name: "Twitter",
+                    link: "https://twitter.com/enjoydestination",
+                  },
+                  {
+                    name: "LinkedIn",
+                    link: "https://linkedin.com/company/enjoydestination",
+                  },
+                ].map((social) => (
                   <a
-                    key={social}
-                    href="#"
+                    key={social.name}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[10px] tracking-widest uppercase text-slate-500 hover:text-white transition-all"
                   >
-                    {social}
+                    {social.name}
                   </a>
                 ))}
+
               </div>
             </motion.div>
 
