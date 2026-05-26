@@ -82,175 +82,170 @@ export default function Home() {
       </a>
 
       {/* HERO SECTION */}
-      <section id="top" className="relative h-screen w-full overflow-hidden flex flex-col text-white">
-        <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              // This KEY is vital; it tells React this is a new element to animate
-              key={bg}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5 }}
-              className="absolute inset-0"
-            >
-              <NextImage
-                // Accessing the specific index from your images array
-                src={images[bg]}
-                alt={`Enjoy Destination Hero ${bg + 1}`}
-                fill
-                priority
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40 z-10" />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+   <section className="relative h-screen w-full overflow-hidden flex flex-col text-white">
+  {/* Background Slider */}
+  <div className="absolute inset-0 z-0 bg-black">
+    <AnimatePresence mode="sync">
+      <motion.div
+        key={bg}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.8 }}
+        className="absolute inset-0"
+      >
+        <NextImage
+          src={images[bg]}
+          alt={`Enjoy Destination Hero ${bg + 1}`}
+          fill
+          priority
+          className="object-cover"
+        />
 
-        {/* HEADER */}
-        <header
-          className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 md:px-12 transition-all duration-300 ${isScrolled
-            ? "py-1 bg-white shadow-sm"
-            : "py-1 bg-transparent"
-            }`}
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/40 z-10" />
+      </motion.div>
+    </AnimatePresence>
+  </div>
+
+  {/* HEADER */}
+  <header
+    className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 md:px-12 transition-all duration-300 ${
+      isScrolled
+        ? "py-1 bg-white shadow-sm"
+        : "py-1 bg-transparent"
+    }`}
+  >
+    {/* Logo */}
+    <div className="flex flex-col">
+      <a href="/" className="flex items-center gap-2">
+        <Image
+          src="/enjoylogo.png"
+          alt="Enjoy Destination"
+          width={80}
+          height={12}
+          className="object-contain transition-all duration-300"
+          priority
+        />
+      </a>
+    </div>
+
+    {/* Desktop Navigation */}
+    <nav className="hidden lg:flex items-center gap-10">
+      {navLinks.map((item) => (
+        <Link
+          key={item.id}
+          href={`#${item.id}`}
+          className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-300 ${
+            isScrolled
+              ? "text-slate-600 hover:text-[#E18A63]"
+              : "text-white hover:text-[#E18A63]"
+          }`}
         >
-          {/* Logo */}
-          <div className="flex flex-col">
-            <div className={`${isScrolled ? "-mt-0" : "-mt-0"} transition-all duration-300`}>
-              <a href="/" className="flex items-center gap-2">
-                <Image
-                  src="/enjoylogo.png"
-                  alt="Enjoy Destination"
-                  width={isScrolled ? 80 : 80}
-                  height={isScrolled ? 12 : 12}
-                  className="object-contain transition-all duration-300"
-                  priority
-                />
-              </a>
+          {item.name}
+        </Link>
+      ))}
+    </nav>
 
-            </div>
-          </div>
+    <div className="flex items-center gap-6">
+      <button className="hidden md:block bg-[#E18A63] text-white text-[10px] tracking-[0.2em] px-8 py-3 hover:bg-[#c97652] transition-all">
+        PLAN A TRIP
+      </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-10">
-            {navLinks.map((item) => (
-              <Link
-                key={item.id}
-                href={`#${item.id}`}
-                className={`text-[10px] tracking-[0.3em] font-medium transition-all duration-300 ${isScrolled
-                  ? "text-slate-600 hover:text-[#E18A63]"
-                  : "text-white hover:text-[#E18A63]"
-                  }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
+      {/* Hamburger */}
+      <button
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className={`lg:hidden flex flex-col gap-1.5 z-50 transition-all ${
+          isScrolled || isMobileMenuOpen
+            ? "text-slate-900"
+            : "text-white"
+        }`}
+      >
+        <div
+          className={`h-0.5 w-6 bg-current transition-all ${
+            isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+          }`}
+        />
+        <div
+          className={`h-0.5 w-6 bg-current transition-all ${
+            isMobileMenuOpen ? "opacity-0" : ""
+          }`}
+        />
+        <div
+          className={`h-0.5 w-6 bg-current transition-all ${
+            isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+          }`}
+        />
+      </button>
+    </div>
+  </header>
 
-          <div className="flex items-center gap-6">
-            <button className="hidden md:block bg-[#E18A63] text-white text-[10px] tracking-[0.2em] px-8 py-3 hover:bg-[#c97652] transition-all">
-              PLAN A TRIP
-            </button>
+  {/* HERO CONTENT */}
+  <div className="relative z-10 flex-grow flex flex-col justify-center px-8 md:px-13 mt-15">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+    >
+      <p className="text-[#E18A63] text-[10px] tracking-[0.4em] mb-6 uppercase font-bold">
+        Experience the archipelago with Enjoy Destination
+      </p>
 
-            {/* Hamburger Icon */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`lg:hidden flex flex-col gap-1.5 z-50 transition-all ${isScrolled || isMobileMenuOpen
-                ? "text-slate-900"
-                : "text-white"
-                }`}
-            >
-              <div
-                className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                  }`}
-              />
-              <div
-                className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "opacity-0" : ""
-                  }`}
-              />
-              <div
-                className={`h-0.5 w-6 bg-current transition-all ${isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                  }`}
-              />
-            </button>
-          </div>
-        </header>
+      <h2 className="text-6xl md:text-[9rem] font-serif leading-[0.85] tracking-tight mb-12">
+        Where the <br /> sea forgets <br /> time.
+      </h2>
 
-        {/* Mobile Menu Overlay */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 lg:hidden"
-            >
-              {navLinks.map((item) => (
-                <Link
-                  key={item.id}
-                  href={`#${item.id}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-xl tracking-[0.4em] font-serif text-slate-900 hover:text-[#E18A63] transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <button className="mt-4 bg-[#E18A63] text-white text-[10px] tracking-[0.2em] px-10 py-4 font-bold uppercase">
-                Plan a Trip
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        {/* METADATA ROW */}
-        {/* <div className="relative z-20 flex justify-between px-8 md:px-12 mt-4 opacity-70">
-          <div className="border-t border-white/30 pt-2 w-40 md:w-64">
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium">Est. Port Blair · 2018</p>
-          </div>
-          <div className="border-t border-white/30 pt-2 w-40 md:w-64 text-right">
-            <p className="text-[9px] tracking-[0.2em] uppercase font-medium">11°40'N · 92°45'E</p>
-          </div>
-        </div> */}
+      <div className="flex flex-wrap gap-6">
+        <button className="bg-[#E18A63] px-10 py-5 text-[10px] tracking-[0.2em] uppercase font-bold hover:scale-105 transition-transform shadow-xl">
+          Begin Your Voyage
+        </button>
 
-        {/* HERO CONTENT */}
-        <div className="relative z-10 flex-grow flex flex-col justify-center px-8 md:px-13 mt-15">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-            <p className="text-[#E18A63] text-[10px] tracking-[0.4em] mb-6 uppercase font-bold">
-              Experience the archipelago with Enjoy Destination
-            </p>
-            <h2 className="text-6xl md:text-[9rem] font-serif leading-[0.85] tracking-tight mb-12">
-              Where the <br /> sea forgets <br /> time.
-            </h2>
-            <div className="flex flex-wrap gap-6">
-              <button className="bg-[#E18A63] px-10 py-5 text-[10px] tracking-[0.2em] uppercase font-bold hover:scale-105 transition-transform shadow-xl">
-                Begin Your Voyage
-              </button>
-              <button className="border border-white/40 px-10 py-5 text-[10px] tracking-[0.2em] uppercase font-bold hover:bg-white hover:text-black transition-all">
-                Browse Journeys
-              </button>
-            </div>
-          </motion.div>
-        </div>
+        <button className="border border-white/40 px-10 py-5 text-[10px] tracking-[0.2em] uppercase font-bold hover:bg-white hover:text-black transition-all">
+          Browse Journeys
+        </button>
+      </div>
+    </motion.div>
+  </div>
 
-        {/* SLIDE INDICATORS */}
-        <div className="relative z-20 px-8 md:px-12 pb-12 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className="flex gap-2">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setBg(i)}
-                  className={`h-[2px] transition-all duration-500 ${bg === i ? "w-12 bg-white" : "w-6 bg-white/30 hover:bg-white/60"}`}
-                />
-              ))}
-            </div>
-            <p className="text-[10px] tracking-[0.2em]">0{bg + 1} / 0{images.length}</p>
-          </div>
-          <div className="flex gap-4">
-            <button onClick={prevSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">←</button>
-            <button onClick={nextSlide} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all">→</button>
-          </div>
-        </div>
-      </section>
+  {/* SLIDER CONTROLS */}
+  <div className="relative z-20 px-8 md:px-12 pb-12 flex items-center justify-between">
+    <div className="flex items-center gap-6">
+      <div className="flex gap-2">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setBg(i)}
+            className={`h-[2px] transition-all duration-500 ${
+              bg === i
+                ? "w-12 bg-white"
+                : "w-6 bg-white/30 hover:bg-white/60"
+            }`}
+          />
+        ))}
+      </div>
+
+      <p className="text-[10px] tracking-[0.2em]">
+        0{bg + 1} / 0{images.length}
+      </p>
+    </div>
+
+    <div className="flex gap-4">
+      <button
+        onClick={prevSlide}
+        className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all"
+      >
+        ←
+      </button>
+
+      <button
+        onClick={nextSlide}
+        className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-all"
+      >
+        →
+      </button>
+    </div>
+  </div>
+</section>
 
       {/* TRUST BAR */}
 
